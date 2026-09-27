@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create account</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="card">
+    <p class="eyebrow">GET STARTED</p>
+    <h1>Create account</h1>
+    <p class="subheading">Register a username and password.</p>
+
+    <p class="message error" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/register}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" minlength="3" maxlength="50"
+               pattern="[A-Za-z0-9_.-]{3,50}" autocomplete="username" required autofocus
+               th:value="${username}">
+        <span class="hint">3-50 letters, numbers, periods, underscores, or hyphens.</span>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" minlength="8"
+               autocomplete="new-password" required>
+        <label for="confirmPassword">Confirm password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" minlength="8"
+               autocomplete="new-password" required>
+        <button type="submit">Create account</button>
+    </form>
+
+    <p class="switch-page">Already registered? <a th:href="@{/login}">Sign in</a></p>
+</main>
+</body>
+</html>
