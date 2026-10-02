@@ -20,8 +20,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                    .antMatchers("/h2-console", "/h2-console/**")
+                    .access("hasIpAddress('127.0.0.1') or hasIpAddress('::1')")
                     .antMatchers("/", "/login", "/register", "/css/**").permitAll()
                     .anyRequest().authenticated()
+                .and()
+                    .csrf().ignoringAntMatchers("/h2-console", "/h2-console/**")
+                .and()
+                    .headers().frameOptions().sameOrigin()
                 .and()
                     .formLogin()
                     .loginPage("/login")
