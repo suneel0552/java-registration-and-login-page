@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/h2-console", "/h2-console/**")
-                    .access("hasIpAddress('127.0.0.1') or hasIpAddress('::1')")
+                    .access("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('172.17.0.1')")
                     .antMatchers("/", "/login", "/register", "/css/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
